@@ -1,28 +1,41 @@
 import {
   View,
   StyleSheet,
-  SafeAreaView,
-  Button,
   TouchableOpacity,
   Text,
+  ActivityIndicator,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Slider from "../components/Slider";
 import { ImageSlider } from "../../data/SliderData";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 export default function Index() {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleCreateAccount = () => {
+    setLoading(true);
+    router.push("/(auth)/signup");
+    setLoading(false)
+  };
+
   return (
     <View style={styles.container}>
       <Slider itemList={ImageSlider} />
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleCreateAccount}>
           <Text style={styles.buttonText}>Create an account</Text>
+          {loading && (
+            <ActivityIndicator color="white" style={styles.spinner} />
+          )}
         </TouchableOpacity>
 
         <View style={styles.textContent}>
           <Text>Already have an account?</Text>
-          <Link className="text-[#E94057] font-bold" href={'/(auth)/signin'}>Sign In</Link>
+          <Link className="text-[#E94057] font-bold" href="/(auth)/signin">
+            Sign In
+          </Link>
         </View>
       </View>
     </View>
@@ -56,6 +69,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 5,
     fontWeight: "semibold",
-    marginTop: 10
-  }
+    marginTop: 10,
+  },
+  spinner: {
+    marginLeft: 10,
+  },
 });

@@ -1,7 +1,7 @@
-import { router, useRouter } from "expo-router";
 import { supabase } from "../../lib/supabase";
+import { router } from "expo-router";
 
-const logout = async () => {
+export default async function logout() {
   await supabase.auth.signOut();
-  router.replace("/"); // or redirect to login
-};
+  router.replace("/");
+}
