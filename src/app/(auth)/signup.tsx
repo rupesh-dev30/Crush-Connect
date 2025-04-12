@@ -10,26 +10,24 @@ import {
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "expo-router";
 
-export default function signIn() {
+export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+  const handleSignup = async () => {
+    const { error } = await supabase.auth.signUp({ email, password });
     if (error) {
-      Alert.alert("Login failed", error.message);
+      Alert.alert("Signup failed", error.message);
     } else {
-      router.replace("/protected"); // redirect after login
+      Alert.alert("Success", "Check your email to confirm your account!");
+      router.replace("/signIn");
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>SIGN UP</Text>
 
       <TextInput
         placeholder="Email"
@@ -48,12 +46,12 @@ export default function signIn() {
         secureTextEntry
       />
 
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Sign In</Text>
+      <TouchableOpacity style={styles.button} onPress={handleSignup}>
+        <Text style={styles.buttonText}>Create Account</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => router.push("/signup")}>
-        <Text style={styles.linkText}>Don't have an account? Sign Up</Text>
+      <TouchableOpacity onPress={() => router.push("/signin")}>
+        <Text style={styles.linkText}>Already have an account? Log In</Text>
       </TouchableOpacity>
     </View>
   );

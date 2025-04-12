@@ -22,7 +22,7 @@ export default function Index() {
 
         <View style={styles.textContent}>
           <Text>Already have an account?</Text>
-          <Link className="text-[#E94057] font-bold" href={'/signin'}>Sign In</Link>
+          <Link className="text-[#E94057] font-bold" href={'/(auth)/signin'}>Sign In</Link>
         </View>
       </View>
     </View>
